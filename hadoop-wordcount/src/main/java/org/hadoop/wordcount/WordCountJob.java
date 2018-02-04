@@ -11,13 +11,13 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class WordCount {
+public class WordCountJob {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 
 		// 代码中设置用户名,用以连接hadoop集群进行操作
 		// System.setProperty("HADOOP_USER_NAME", "root");
-		
+
 		// Configuration默认加载src目录下的配置文件
 		Configuration configuration = new Configuration();
 		// configuration.set("fs.defaultFs", "hdfs://slave1:8020");
@@ -38,7 +38,7 @@ public class WordCount {
 		if (fSystem.exists(outputPath)) {
 			fSystem.delete(outputPath, true);
 		}
-		Path inputPath = new Path("/wc/input");
+		Path inputPath = new Path("/wc/input/wc");
 
 		FileInputFormat.addInputPath(job, inputPath);
 		FileOutputFormat.setOutputPath(job, outputPath);
