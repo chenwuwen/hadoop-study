@@ -10,6 +10,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.hadoop.commend.step1.CommendJob1;
 
 public class WeatherJob {
 
@@ -25,6 +26,9 @@ public class WeatherJob {
 
 		Job job = Job.getInstance(configuration);
 
+		// 指定程序入口
+		job.setJarByClass(WeatherJob.class);
+		
 		job.setMapperClass(WeatherMapper.class);
 		job.setMapOutputKeyClass(Weather.class);
 		job.setMapOutputValueClass(IntWritable.class);

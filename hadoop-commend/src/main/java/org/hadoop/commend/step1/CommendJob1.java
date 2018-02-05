@@ -1,4 +1,4 @@
-package org.hadoop.wordcount;
+package org.hadoop.commend.step1;
 
 import java.io.IOException;
 
@@ -10,9 +10,8 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.hadoop.weather.WeatherJob;
 
-public class WordCountJob {
+public class CommendJob1 {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 
@@ -27,22 +26,21 @@ public class WordCountJob {
 		Job job = Job.getInstance(configuration);
 
 		// 指定程序入口
-		job.setJarByClass(WordCountJob.class);
+		job.setJarByClass(CommendJob1.class);
 
-		job.setMapperClass(WCMapper.class);
-		job.setMapOutputKeyClass(Text.class);
-		job.setMapOutputValueClass(IntWritable.class);
-
-		job.setReducerClass(WCReducer.class);
+		job.setMapperClass(CommendMapper1.class);
+		job.setReducerClass(CommendReducer1.class);
+		// 设置Reduce个数
+		job.setNumReduceTasks(3);
 
 		FileSystem fSystem = FileSystem.get(configuration);
 
-		Path outputPath = new Path("/wc/outputPath");
+		Path outputPath = new Path("/command/outputPath");
 
 		if (fSystem.exists(outputPath)) {
 			fSystem.delete(outputPath, true);
 		}
-		Path inputPath = new Path("/wc/input/wc");
+		Path inputPath = new Path("/command/input/weather");
 
 		FileInputFormat.addInputPath(job, inputPath);
 		FileOutputFormat.setOutputPath(job, outputPath);

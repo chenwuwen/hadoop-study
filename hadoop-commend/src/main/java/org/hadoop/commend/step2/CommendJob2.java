@@ -1,4 +1,4 @@
-package org.hadoop.wordcount;
+package org.hadoop.commend.step2;
 
 import java.io.IOException;
 
@@ -10,15 +10,14 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.hadoop.weather.WeatherJob;
 
-public class WordCountJob {
+public class CommendJob2 {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 
 		// 代码中设置用户名,用以连接hadoop集群进行操作
 		// System.setProperty("HADOOP_USER_NAME", "root");
-
+		
 		// Configuration默认加载src目录下的配置文件
 		Configuration configuration = new Configuration();
 		// configuration.set("fs.defaultFs", "hdfs://slave1:8020");
@@ -26,23 +25,24 @@ public class WordCountJob {
 
 		Job job = Job.getInstance(configuration);
 
-		// 指定程序入口
-		job.setJarByClass(WordCountJob.class);
-
-		job.setMapperClass(WCMapper.class);
-		job.setMapOutputKeyClass(Text.class);
+		job.setMapperClass(WeatherMapper.class);
+		job.setMapOutputKeyClass(Weather.class);
 		job.setMapOutputValueClass(IntWritable.class);
-
-		job.setReducerClass(WCReducer.class);
-
+		job.setReducerClass(WeatherReducer.class);
+		job.setPartitionerClass(WeatherPartition.class);
+		job.setGroupingComparatorClass(WeatherGroup.class);
+		job.setSortComparatorClass(WeatherSort.class);
+//		设置Reduce个数
+		job.setNumReduceTasks(3);
+		
 		FileSystem fSystem = FileSystem.get(configuration);
 
-		Path outputPath = new Path("/wc/outputPath");
+		Path outputPath = new Path("/weather/outputPath");
 
 		if (fSystem.exists(outputPath)) {
 			fSystem.delete(outputPath, true);
 		}
-		Path inputPath = new Path("/wc/input/wc");
+		Path inputPath = new Path("/weather/input/weather");
 
 		FileInputFormat.addInputPath(job, inputPath);
 		FileOutputFormat.setOutputPath(job, outputPath);
