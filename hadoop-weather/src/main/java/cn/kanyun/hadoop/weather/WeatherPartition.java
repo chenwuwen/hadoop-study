@@ -1,4 +1,4 @@
-package org.hadoop.weather;
+package cn.kanyun.hadoop.weather;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.lib.partition.HashPartitioner;

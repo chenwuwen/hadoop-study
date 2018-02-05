@@ -1,4 +1,4 @@
-package org.hadoop.weather;
+package cn.kanyun.hadoop.weather;
 
 import java.io.DataInput;
 import java.io.DataOutput;

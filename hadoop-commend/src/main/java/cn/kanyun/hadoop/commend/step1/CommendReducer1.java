@@ -1,4 +1,4 @@
-package org.hadoop.commend.step1;
+package cn.kanyun.hadoop.commend.step1;
 
 import java.io.IOException;
 

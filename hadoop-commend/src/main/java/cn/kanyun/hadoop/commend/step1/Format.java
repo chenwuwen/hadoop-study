@@ -1,4 +1,4 @@
-package org.hadoop.commend.step1;
+package cn.kanyun.hadoop.commend.step1;
 /**
  * 格式化：如  小明+小丽  转换为 小丽+小明
  * @author root

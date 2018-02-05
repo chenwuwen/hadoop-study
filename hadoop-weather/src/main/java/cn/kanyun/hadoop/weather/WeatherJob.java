@@ -1,4 +1,4 @@
-package org.hadoop.commend.step2;
+package cn.kanyun.hadoop.weather;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class CommendJob2 {
+public class WeatherJob {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 
@@ -25,6 +25,9 @@ public class CommendJob2 {
 
 		Job job = Job.getInstance(configuration);
 
+		// 指定程序入口
+		job.setJarByClass(WeatherJob.class);
+		
 		job.setMapperClass(WeatherMapper.class);
 		job.setMapOutputKeyClass(Weather.class);
 		job.setMapOutputValueClass(IntWritable.class);

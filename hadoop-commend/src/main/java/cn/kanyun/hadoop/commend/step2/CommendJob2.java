@@ -1,4 +1,4 @@
-package org.hadoop.commend.step1;
+package cn.kanyun.hadoop.commend.step2;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class CommendJob1 {
+public class CommendJob2 {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 
@@ -25,22 +25,19 @@ public class CommendJob1 {
 
 		Job job = Job.getInstance(configuration);
 
-		// 指定程序入口
-		job.setJarByClass(CommendJob1.class);
-
-		job.setMapperClass(CommendMapper1.class);
-		job.setReducerClass(CommendReducer1.class);
+		job.setMapperClass(CommendMapper2.class);
+		job.setReducerClass(CommendReducer2.class);
 		// 设置Reduce个数
 		job.setNumReduceTasks(3);
 
 		FileSystem fSystem = FileSystem.get(configuration);
 
-		Path outputPath = new Path("/command/outputPath");
+		Path outputPath = new Path("/commend/outputPath");
 
 		if (fSystem.exists(outputPath)) {
 			fSystem.delete(outputPath, true);
 		}
-		Path inputPath = new Path("/command/input/weather");
+		Path inputPath = new Path("/commend/input/commend");
 
 		FileInputFormat.addInputPath(job, inputPath);
 		FileOutputFormat.setOutputPath(job, outputPath);

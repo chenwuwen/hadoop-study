@@ -1,4 +1,4 @@
-package org.hadoop.wordcount;
+package cn.kanyun.hadoop.wordcount;
 
 import java.io.IOException;
 

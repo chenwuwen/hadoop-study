@@ -1,12 +1,13 @@
-package org.hadoop.weather;
+package cn.kanyun.hadoop.weather;
 
 import org.apache.hadoop.io.WritableComparable;
 import org.apache.hadoop.io.WritableComparator;
 
-public class WeatherGroup extends WritableComparator {
+public class WeatherSort extends WritableComparator {
 
 	// 必须
-	public WeatherGroup() {
+	public WeatherSort() {
+		// TODO Auto-generated constructor stub
 		super(Weather.class, true);
 	}
 
@@ -17,8 +18,13 @@ public class WeatherGroup extends WritableComparator {
 		Weather w2 = (Weather) b;
 		int o1 = Integer.compare(w1.getYear(), w2.getYear());
 		if (o1 == 0) {
-			return Integer.compare(w1.getMouth(), w2.getMouth());
+			int o2 = Integer.compare(w1.getMouth(), w2.getMouth());
+			if (o2 == 0) {
+				return -Integer.compare(w1.getHot(), w2.getHot());
+			}
+			return o2;
 		}
+
 		return o1;
 	}
 
