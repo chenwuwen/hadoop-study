@@ -35,7 +35,7 @@ public class CommendJob1 {
 
 		FileSystem fSystem = FileSystem.get(configuration);
 
-		Path outputPath = new Path("/command/outputPath");
+		Path outputPath = new Path("/command/outputPath1");
 
 		if (fSystem.exists(outputPath)) {
 			fSystem.delete(outputPath, true);

@@ -27,17 +27,22 @@ public class CommendJob2 {
 
 		job.setMapperClass(CommendMapper2.class);
 		job.setReducerClass(CommendReducer2.class);
+		job.setMapOutputKeyClass(Commend.class);
+		job.setMapOutputValueClass(IntWritable.class);
+		job.setSortComparatorClass(CommendSort.class);
+		job.setGroupingComparatorClass(CommendGroup.class);
 		// 设置Reduce个数
 		job.setNumReduceTasks(3);
 
 		FileSystem fSystem = FileSystem.get(configuration);
 
-		Path outputPath = new Path("/commend/outputPath");
+		Path outputPath = new Path("/commend/outputPath2");
 
 		if (fSystem.exists(outputPath)) {
 			fSystem.delete(outputPath, true);
 		}
-		Path inputPath = new Path("/commend/input/commend");
+//		此输入上一次MapReduce的输出
+		Path inputPath = new Path("/commend/outputPath1");
 
 		FileInputFormat.addInputPath(job, inputPath);
 		FileOutputFormat.setOutputPath(job, outputPath);
