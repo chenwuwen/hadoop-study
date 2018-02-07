@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.Job;
 
-public class TfidfJob1 {
+public class TfidfJob2 {
 	public static void main(String[] args) throws IOException {
 		// 代码中设置用户名,用以连接hadoop集群进行操作
 		// System.setProperty("HADOOP_USER_NAME", "root");
@@ -24,21 +24,21 @@ public class TfidfJob1 {
 		Job job = Job.getInstance(configuration);
 
 		// 指定程序入口
-		job.setJarByClass(TfidfJob1.class);
-		job.setJobName("weibo1");
+		job.setJarByClass(TfidfJob2.class);
+		job.setJobName("weibo2");
 		job.setNumReduceTasks(4);
 		job.setPartitionerClass(TfidfPartition1.class);
-		job.setMapperClass(TfidfMapper1.class);
-		job.setReducerClass(TfidfReducer1.class);
-		job.setCombinerClass(TfidfReducer1.class);
-
+		job.setMapperClass(TfidfMapper2.class);
+		job.setReducerClass(TfidfReducer2.class);
+		job.setCombinerClass(TfidfReducer2.class);
+		// 设置map输出key类型，value类型
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
-
+		// 当前mr输入数据从上一mar输出数据获取
 		FileSystem fs = FileSystem.get(configuration);
-		Path inputPath = new Path("/tfidf/input/tfidf");
+		Path inputPath = new Path("/tfidf/output1/");
 		FileInputFormat.addInputPath(job, inputPath);
-		Path outputPath = new Path("/tfidf/output1/");
+		Path outputPath = new Path("/tfidf/output2/");
 		FileOutputFormat.setOutputPath(job, outputPath);
 	}
 }
